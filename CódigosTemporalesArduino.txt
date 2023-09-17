@@ -1,0 +1,170 @@
+int latchPin = 5; // Latch pin of 74HC595 is connected to Digital pin 5
+int clockPin = 6; // Clock pin of 74HC595 is connected to Digital pin 6
+int dataPin = 4; // Data pin of 74HC595 is connected to Digital pin 4
+
+byte leds = 0; // Variable to hold the pattern of which LEDs are currently turned on or off
+
+	/*
+	* setup() - this function runs once when you turn your Arduino on
+	* We initialize the serial connection with the computer
+	*/
+void setup()
+{
+// Set all the pins of 74HC595 as OUTPUT
+pinMode(latchPin, OUTPUT);
+pinMode(dataPin, OUTPUT);
+pinMode(clockPin, OUTPUT);
+}
+
+
+
+	/*
+	* loop() - this function runs over and over again
+	*/
+
+
+void loop()
+{
+leds = 0; // Initially turns all the LEDs off, by giving the variable 'leds' the value 0
+updateShiftRegister();
+delay(500);
+for (int i = 0; i < 8; i++) // Turn all the LEDs ON one by one.
+{
+bitSet(leds, i); // Set the bit that controls that LED in the variable 'leds'
+updateShiftRegister();
+delay(500);
+}
+}
+
+	/*
+	* updateShiftRegister() - This function sets the latchPin to low, then calls the Arduino function 'shiftOut' to shift out contents of variable 'leds' in the shift register before 	putting the 'latchPin' high again.
+	*/
+void updateShiftRegister()
+{
+digitalWrite(latchPin, LOW);
+shiftOut(dataPin, clockPin, LSBFIRST, leds);
+digitalWrite(latchPin, HIGH);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+int pinData  = 2;
+int pinLatch = 3;
+int pinClock = 4;
+#define TIEMPO 150
+
+void ledWrite(int Led){
+   shiftOut(pinData, pinClock, LSBFIRST, Led);
+   digitalWrite(pinLatch, HIGH);
+   digitalWrite(pinLatch, LOW);
+}
+
+void setup(){
+   pinMode(pinData, OUTPUT);
+   pinMode(pinLatch, OUTPUT);
+   pinMode(pinClock, OUTPUT);
+}
+
+void loop(){
+
+   ledWrite(B00000000); delay(TIEMPO);
+   ledWrite(B00000001); delay(TIEMPO);
+   ledWrite(B00000011); delay(TIEMPO);
+   ledWrite(B00000110); delay(TIEMPO);
+   ledWrite(B00001100); delay(TIEMPO);
+   ledWrite(B00011000); delay(TIEMPO);
+   ledWrite(B00110000); delay(TIEMPO);
+   ledWrite(B01100000); delay(TIEMPO);
+   ledWrite(B11000000); delay(TIEMPO);
+   ledWrite(B10000000); delay(TIEMPO);
+   ledWrite(B00000000); delay(TIEMPO);
+
+   delay(1000);
+
+   ledWrite(B00000000); delay(TIEMPO);
+   ledWrite(B10000001); delay(TIEMPO);
+   ledWrite(B01000010); delay(TIEMPO);
+   ledWrite(B00100100); delay(TIEMPO);
+   ledWrite(B00011000); delay(TIEMPO);
+   ledWrite(B00100100); delay(TIEMPO);
+   ledWrite(B01000010); delay(TIEMPO);
+   ledWrite(B10000001); delay(TIEMPO);
+   ledWrite(B00000000); delay(TIEMPO);
+
+   delay(1000);
+
+   ledWrite(B00000000); delay(TIEMPO);
+   ledWrite(B10000000); delay(TIEMPO);
+   ledWrite(B11000000); delay(TIEMPO);
+   ledWrite(B11100000); delay(TIEMPO);
+   ledWrite(B11110000); delay(TIEMPO);
+   ledWrite(B11111000); delay(TIEMPO);
+   ledWrite(B11111100); delay(TIEMPO);
+   ledWrite(B11111110); delay(TIEMPO);
+   ledWrite(B11111111); delay(TIEMPO);
+   ledWrite(B01111111); delay(TIEMPO);
+   ledWrite(B00111111); delay(TIEMPO);
+   ledWrite(B00011111); delay(TIEMPO);
+   ledWrite(B00001111); delay(TIEMPO);
+   ledWrite(B00000111); delay(TIEMPO);
+   ledWrite(B00000011); delay(TIEMPO);
+   ledWrite(B00000001); delay(TIEMPO);
+   ledWrite(B00000000); delay(TIEMPO);
+
+   delay(1000);
+
+   ledWrite(B00000000); delay(TIEMPO);
+   ledWrite(B10101010); delay(TIEMPO);
+   ledWrite(B01010101); delay(TIEMPO);
+   ledWrite(B10101010); delay(TIEMPO);
+   ledWrite(B01010101); delay(TIEMPO);
+   ledWrite(B10101010); delay(TIEMPO);
+   ledWrite(B01010101); delay(TIEMPO);
+   ledWrite(B10101010); delay(TIEMPO);
+   ledWrite(B01010101); delay(TIEMPO);
+   ledWrite(B00000000); delay(TIEMPO);
+
+   delay(1000);
+
+}
+
+
+
+Para encender todos los LED pasada la configuración total
+
+int rclkPin = 4;
+int latchPin = 5;
+int relojPin = 6;
+
+#define TIEMPO 200
+
+void ledWrite(int Rled){
+   shiftOut(rclkPin, relojPin, MSBFIRST,Rled);
+   digitalWrite(latchPin, LOW);
+   
+}
+
+
+void setup(){
+  pinMode(rclkPin,OUTPUT);
+  pinMode(latchPin,OUTPUT);
+  pinMode(relojPin,OUTPUT);
+}
+
+
+
+void loop(){
+   	delay(2000);
+	ledWrite(B10101010); digitalWrite(latchPin, HIGH);delay(1000);
+  	ledWrite(B01010101);  delay(1000);
+  	
+}				
