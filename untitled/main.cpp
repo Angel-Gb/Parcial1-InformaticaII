@@ -33,3 +33,66 @@ void liberarMatriz(bool **matriz) {
     delete[] matriz;
 }
 
+int main() {
+    bool **matriz = new bool *[FILAS];
+    for (int i = 0; i < FILAS; i++) {
+        matriz[i] = new bool[COLUMNAS];
+        for (int j = 0; j < COLUMNAS; j++) {
+            matriz[i][j] = false; // Inicializar con ceros
+        }
+    }
+
+    // Declarar matrices de patrones
+    bool **patron1 = new bool *[FILAS];
+    bool **patron2 = new bool *[FILAS];
+    bool **patron3 = new bool *[FILAS];
+    bool **patron4 = new bool *[FILAS];
+
+    // Inicializar matrices de patrones
+    // (cada uno es un arreglo bidimensional constante)
+    const bool pat1[FILAS][COLUMNAS] = {
+        {1, 0, 0, 0, 0, 0, 0, 1},
+        {0, 1, 0, 0, 0, 0, 1, 0},
+        {0, 0, 1, 0, 0, 1, 0, 0},
+        {0, 0, 0, 1, 1, 0, 0, 0},
+        {0, 0, 0, 1, 1, 0, 0, 0},
+        {0, 0, 1, 0, 0, 1, 0, 0},
+        {0, 1, 0, 0, 0, 0, 1, 0},
+        {1, 0, 0, 0, 0, 0, 0, 1}
+    };
+
+    const bool pat2[FILAS][COLUMNAS] = {
+        {0, 0, 0, 1, 1, 0, 0, 0},
+        {0, 0, 1, 1, 1, 1, 0, 0},
+        {0, 1, 1, 1, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1},
+        {0, 1, 1, 1, 1, 1, 1, 0},
+        {0, 0, 1, 1, 1, 1, 0, 0},
+        {0, 0, 0, 1, 1, 0, 0, 0}
+    };
+
+    const bool pat3[FILAS][COLUMNAS] = {
+        {1, 1, 0, 1, 1, 0, 1, 1},
+        {1, 1, 0, 1, 1, 0, 1, 1},
+        {0, 1, 1, 0, 1, 1, 0, 1},
+        {0, 1, 1, 0, 1, 1, 0, 1},
+        {1, 1, 0, 1, 1, 0, 1, 1},
+        {1, 1, 0, 1, 1, 0, 1, 1},
+        {0, 1, 1, 0, 1, 1, 0, 1},
+        {0, 1, 1, 0, 1, 1, 0, 1}
+    };
+
+    const bool pat4[FILAS][COLUMNAS] = {
+        {1, 1, 1, 1, 0, 0, 0, 0},
+        {0, 1, 1, 1, 1, 0, 0, 0},
+        {0, 0, 1, 1, 1, 1, 0, 0},
+        {0, 0, 0, 1, 1, 1, 1, 0},
+        {0, 0, 0, 1, 1, 1, 1, 0},
+        {0, 0, 1, 1, 1, 1, 0, 0},
+        {0, 1, 1, 1, 1, 0, 0, 0},
+        {1, 1, 1, 1, 0, 0, 0, 0}
+    };
+
+    return 0;
+}
