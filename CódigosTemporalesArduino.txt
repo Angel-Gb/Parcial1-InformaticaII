@@ -1,15 +1,28 @@
+// C++ code
+//Matriz
+
+
+
 
 // definición variables y pines
 const int datos = 4;
-const int almacenamiento = 5;
+const int almacenamiento = 5;  		//paso de dato de salida a salida
 const int reloj = 6;
-int tiempo =0;
 int j = 0;
-int encendida[8] = {255,255,255,255,255,255,255,255};
-int apagada[8] = {0,0,0,0,0,0,0,0};
+int matriz[8] = {};
+int fila[8] = {0,0,0,0,0,0,0,0};
+
 
 
 //Prototipo funciones
+void verificacion(int );
+void imagen();
+void patrones();
+void patron1();
+void patron2();
+void patron3();
+void patron4();
+void publik();
 void encenderTodos();
 
 
@@ -23,19 +36,122 @@ void setup(){
 
 //Loop
 void loop(){
-  encenderTodos();
-  delay(10000);
+  	int opcionA = 0;
+  	Serial.print("\n MENU: \n");
+	Serial.print("1. Probar funcionamiento de los LED (5 iteraciones de 2s de duracion)  \n");
+  	Serial.print("2. Mostrar el patron que desee a continuacon...  \n");
+	Serial.print("3. Seleccionar un patron predefinido (1-4). \n");
+	Serial.print("4. Seleccion de comandos alternos... \n");
+	Serial.print("Seleccione una opcion: ");
+  	while(Serial.available() == 0);
+  	opcionA = Serial.parseInt();
+  	Serial.print(opcionA);
+  switch(opcionA){
+    case 1:
+    	verificacion();
+    	break;
+    case 2:
+    	imagen();
+    	break;
+    case 3:
+    	patrones();
+    	break;
+   	case 4:
+    	publik();
+    	break;
+    default:
+    	Serial.print("\n Opcion invalida. \ n");
+    	break;
+  
+  }
+  
+  delay(1000);
+
 }
 
 
 //Cuerpo de funciones
-void encenderTodos(){
+
+void verificacion(){
+ 	Serial.print("\nHola Mundo 1 \n") ;
+  
+}
+
+void imagen(){
+ 	Serial.print("\nHola Mundo 2 \n") ;
+  
+}
+
+//Meú de patrones
+void patrones(){
+  int opcionB = 0;
+  while (opcionB !=5){
+    Serial.print("\n MENU: \n");
+      Serial.print("1. Patron 1.  \n");
+      Serial.print("2. Patron 2. \n");
+      Serial.print("3. Patron 3. \n");
+      Serial.print("4. Patron 4. \n");
+      Serial.print("5. Salir. \n");
+      Serial.print("Seleccione una opcion: ");
+      while(Serial.available() == 0);
+      opcionB = Serial.parseInt();
+    switch(opcionB){
+     case 1:
+      	patron1();
+      	break;
+     case 2: 
+      	patron2();
+      	break;
+     case 3:
+      	patron3();
+      	break;
+     case 4:
+      	patron4();
+      	break;
+     case 5:
+      	break;
+     default:
+      	Serial.print("\n Opcion invalida. \ n");
+    	break;
+    }
+  }
+}
+
+
+void patron1(){
+  	Serial.print("\nHola Mundo 3 \n") ;
+}
+
+void patron2(){
+  	Serial.print("\nHola Mundo 4 \n") ;
+}
+
+void patron3(){
+ 	Serial.print("\nHola Mundo 5 \n") ; 
+}
+
+void patron4(){
+ 	Serial.print("\nHola Mundo 6 \n") ; 
+}
+  
+void publik(){
+ 	Serial.print("\nHola Mundo 7 \n") ; 
+}
+  
+
+
+
+
+void encenderTodos(int tiempo){
+  for (int p = 0; p <8 ; p++){
+    matriz[p] = 255;
+  }
   for(int i=0; i<8; i++){
       digitalWrite(almacenamiento, LOW);
-      shiftOut(datos, reloj, LSBFIRST, encendida[j]);
-      shiftOut(datos, reloj, LSBFIRST, apagada[i]);
-      digitalWrite(almacenamiento, HIGH);
+    	digitalWrite(almacenamiento, HIGH);
+      shiftOut(datos, reloj, LSBFIRST, matriz[j]);
+      shiftOut(datos, reloj, LSBFIRST, fila[i]);
       j++;
-      delay(10);
   }
+  j = 0;
 }
