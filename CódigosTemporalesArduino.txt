@@ -1,4 +1,3 @@
-
 const int datosPin = 4;
 const int almacenamientoPin = 5;
 const int relojPin = 6;
@@ -33,11 +32,68 @@ void loop(){
   if (Serial.available()>0){
     tiempo = Serial.read();
   }
-	ledWrite(0x3c, 0x7e, 0x66, 0x66, 0x66, 0x66, 0x7e, 0x3c);
+	ledWrite(127, 191, 223, 239, 247, 251, 253, 254);
   	delay(tiempo);
   	//ledWrite(0,0,0,0,0,0,0,0);
  	delay(tiempo);
 }
 
 
-    
+
+
+
+
+//Matriz
+
+
+
+
+// definición variables y pines
+const int datosPin = 4;
+const int almacenamientoPin = 5;
+const int relojPin = 6;
+int tiempo =0;
+bool **matriz = new bool *[8];
+
+//Prototipo funciones
+void creacionMatriz(bool **);
+
+
+// setup
+void setup(){
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  Serial.begin(9600);
+}
+
+//Loop
+void loop(){
+  creacionMatriz(bool **matriz);
+  for (int k = 0; k <8 ; k++){
+
+	for(int j = 0; j <8 ; j ++){
+		Serial.print(matriz[k][j]);
+      	Serial.print(" ");
+	}
+	Serial.print("\n");
+	}
+  delay(10000);
+}
+
+
+
+//Cuerpo de funciones
+void creacionMatriz(bool **matriz){
+for(int i = 0; i < 8; i++){
+	matriz[i] = new bool[8];
+    for(int j = 0; j < 8; j++){
+        matriz[i][j] = false; // Inicializar con ceros
+     	}
+	}
+}
+
+
+void encenderTodos(){
+  
+}
