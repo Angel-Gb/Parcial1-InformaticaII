@@ -1,29 +1,28 @@
 
-
-int rclkPin = 4;
-int latchPin = 5;
-int relojPin = 6;
+const int datosPin = 4;
+const int almacenamientoPin = 5;
+const int relojPin = 6;
 int tiempo =0;
 
 
 void ledWrite(int primerfila, int segundfila, int tercfila, int cuartfila, int quintfila, int sextfila, int septfila, int octfila){
-   	shiftOut(rclkPin, relojPin, LSBFIRST,octfila);
-  	shiftOut(rclkPin, relojPin, LSBFIRST,septfila);
-  	shiftOut(rclkPin, relojPin, LSBFIRST,sextfila);
-  	shiftOut(rclkPin, relojPin, LSBFIRST,quintfila);
-  	shiftOut(rclkPin, relojPin, LSBFIRST,cuartfila);
-  	shiftOut(rclkPin, relojPin, LSBFIRST,tercfila);
-  	shiftOut(rclkPin, relojPin, LSBFIRST,segundfila);
-  	shiftOut(rclkPin, relojPin, LSBFIRST,primerfila);
-  	digitalWrite(latchPin, HIGH);
-   	digitalWrite(latchPin, LOW);
+   	shiftOut(datosPin, relojPin, LSBFIRST,octfila);
+  	shiftOut(datosPin, relojPin, LSBFIRST,septfila);
+  	shiftOut(datosPin, relojPin, LSBFIRST,sextfila);
+  	shiftOut(datosPin, relojPin, LSBFIRST,quintfila);
+  	shiftOut(datosPin, relojPin, LSBFIRST,cuartfila);
+  	shiftOut(datosPin, relojPin, LSBFIRST,tercfila);
+  	shiftOut(datosPin, relojPin, LSBFIRST,segundfila);
+  	shiftOut(datosPin, relojPin, LSBFIRST,primerfila);
+  	digitalWrite(almacenamientoPin, HIGH);
+   	digitalWrite(almacenamientoPin, LOW);
    
 }
 
 
 void setup(){
-  pinMode(rclkPin,OUTPUT);
-  pinMode(latchPin,OUTPUT);
+  pinMode(datosPin,OUTPUT);
+  pinMode(almacenamientoPin,OUTPUT);
   pinMode(relojPin,OUTPUT);
   Serial.begin(9600);
 }
@@ -34,10 +33,11 @@ void loop(){
   if (Serial.available()>0){
     tiempo = Serial.read();
   }
-	ledWrite(170,85,170,85,170,85,170,85);
+	ledWrite(0x3c, 0x7e, 0x66, 0x66, 0x66, 0x66, 0x7e, 0x3c);
   	delay(tiempo);
   	//ledWrite(0,0,0,0,0,0,0,0);
  	delay(tiempo);
 }
+
 
     
