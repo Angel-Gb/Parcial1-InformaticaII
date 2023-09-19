@@ -1,8 +1,4 @@
 // C++ code
-//Matriz
-
-
-
 
 // definición variables y pines
 const int datos = 4;
@@ -15,7 +11,7 @@ int fila[8] = {0,0,0,0,0,0,0,0};
 
 
 //Prototipo funciones
-void verificacion(int );
+void verificacion(int , int);
 void imagen();
 void patrones();
 void patron1();
@@ -23,7 +19,8 @@ void patron2();
 void patron3();
 void patron4();
 void publik();
-void encenderTodos();
+void encenderTodos(int);
+void apagarTodos(int);
 
 
 // setup
@@ -37,8 +34,10 @@ void setup(){
 //Loop
 void loop(){
   	int opcionA = 0;
+  	int tiempo = 0;
+    int reps = 0;
   	Serial.print("\n MENU: \n");
-	Serial.print("1. Probar funcionamiento de los LED (5 iteraciones de 2s de duracion)  \n");
+	Serial.print("1. Probar funcionamiento de los LED (5 iteraciones de 1s de duracion)  \n");
   	Serial.print("2. Mostrar el patron que desee a continuacon...  \n");
 	Serial.print("3. Seleccionar un patron predefinido (1-4). \n");
 	Serial.print("4. Seleccion de comandos alternos... \n");
@@ -48,7 +47,9 @@ void loop(){
   	Serial.print(opcionA);
   switch(opcionA){
     case 1:
-    	verificacion();
+    	tiempo = 1000;
+  		reps = 5;
+    	verificacion(tiempo, reps);
     	break;
     case 2:
     	imagen();
@@ -72,8 +73,12 @@ void loop(){
 
 //Cuerpo de funciones
 
-void verificacion(){
- 	Serial.print("\nHola Mundo 1 \n") ;
+void verificacion(int tiempo, int reps){
+  for (int y = 0; y < reps; y++){
+ 	encenderTodos(tiempo);
+  	apagarTodos(tiempo);
+  }
+  //Serial.print("\nHola Mundo 1 \n") ;
   
 }
 
@@ -146,12 +151,22 @@ void encenderTodos(int tiempo){
   for (int p = 0; p <8 ; p++){
     matriz[p] = 255;
   }
-  for(int i=0; i<8; i++){
-      digitalWrite(almacenamiento, LOW);
-    	digitalWrite(almacenamiento, HIGH);
-      shiftOut(datos, reloj, LSBFIRST, matriz[j]);
-      shiftOut(datos, reloj, LSBFIRST, fila[i]);
-      j++;
+digitalWrite(almacenamiento, LOW);
+shiftOut(datos, reloj, LSBFIRST, matriz[j]);
+shiftOut(datos, reloj, LSBFIRST, fila[0]);
+digitalWrite(almacenamiento, HIGH);
+delay(tiempo);
+
+}
+
+void apagarTodos(int tiempo){
+  for (int p = 0; p <8 ; p++){
+    matriz[p] = 0;
   }
-  j = 0;
+digitalWrite(almacenamiento, LOW);
+shiftOut(datos, reloj, LSBFIRST, matriz[j]);
+shiftOut(datos, reloj, LSBFIRST, fila[0]);
+digitalWrite(almacenamiento, HIGH);
+delay(tiempo);
+
 }
