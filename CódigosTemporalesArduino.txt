@@ -1,62 +1,16 @@
-const int datosPin = 4;
-const int almacenamientoPin = 5;
-const int relojPin = 6;
-int tiempo =0;
-
-
-void ledWrite(int primerfila, int segundfila, int tercfila, int cuartfila, int quintfila, int sextfila, int septfila, int octfila){
-   	shiftOut(datosPin, relojPin, LSBFIRST,octfila);
-  	shiftOut(datosPin, relojPin, LSBFIRST,septfila);
-  	shiftOut(datosPin, relojPin, LSBFIRST,sextfila);
-  	shiftOut(datosPin, relojPin, LSBFIRST,quintfila);
-  	shiftOut(datosPin, relojPin, LSBFIRST,cuartfila);
-  	shiftOut(datosPin, relojPin, LSBFIRST,tercfila);
-  	shiftOut(datosPin, relojPin, LSBFIRST,segundfila);
-  	shiftOut(datosPin, relojPin, LSBFIRST,primerfila);
-  	digitalWrite(almacenamientoPin, HIGH);
-   	digitalWrite(almacenamientoPin, LOW);
-   
-}
-
-
-void setup(){
-  pinMode(datosPin,OUTPUT);
-  pinMode(almacenamientoPin,OUTPUT);
-  pinMode(relojPin,OUTPUT);
-  Serial.begin(9600);
-}
-
-
-
-void loop(){
-  if (Serial.available()>0){
-    tiempo = Serial.read();
-  }
-	ledWrite(127, 191, 223, 239, 247, 251, 253, 254);
-  	delay(tiempo);
-  	//ledWrite(0,0,0,0,0,0,0,0);
- 	delay(tiempo);
-}
-
-
-
-
-
-
-//Matriz
-
-
-
 
 // definición variables y pines
-const int datosPin = 4;
-const int almacenamientoPin = 5;
-const int relojPin = 6;
+const int datos = 4;
+const int almacenamiento = 5;
+const int reloj = 6;
 int tiempo =0;
-bool **matriz = new bool *[8];
+int j = 0;
+int encendida[8] = {255,255,255,255,255,255,255,255};
+int apagada[8] = {0,0,0,0,0,0,0,0};
+
 
 //Prototipo funciones
-void creacionMatriz(bool **);
+void encenderTodos();
 
 
 // setup
@@ -69,31 +23,19 @@ void setup(){
 
 //Loop
 void loop(){
-  creacionMatriz(bool **matriz);
-  for (int k = 0; k <8 ; k++){
-
-	for(int j = 0; j <8 ; j ++){
-		Serial.print(matriz[k][j]);
-      	Serial.print(" ");
-	}
-	Serial.print("\n");
-	}
+  encenderTodos();
   delay(10000);
 }
 
 
-
 //Cuerpo de funciones
-void creacionMatriz(bool **matriz){
-for(int i = 0; i < 8; i++){
-	matriz[i] = new bool[8];
-    for(int j = 0; j < 8; j++){
-        matriz[i][j] = false; // Inicializar con ceros
-     	}
-	}
-}
-
-
 void encenderTodos(){
-  
+  for(int i=0; i<8; i++){
+      digitalWrite(almacenamiento, LOW);
+      shiftOut(datos, reloj, LSBFIRST, encendida[j]);
+      shiftOut(datos, reloj, LSBFIRST, apagada[i]);
+      digitalWrite(almacenamiento, HIGH);
+      j++;
+      delay(10);
+  }
 }
