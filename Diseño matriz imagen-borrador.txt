@@ -1,0 +1,24 @@
+#include <iostream>
+
+using namespace std;
+
+// Función para crear y llenar una matriz 8x8 con 1s
+void crearMatriz(int matriz[8][8]) {
+    cout << "Por favor, ingrese los datos de la matriz por filas. Ingrese 1 para cada posición:\n";
+
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            cout << "Fila " << (i + 1) << ", Columna " << (j + 1) << ": ";
+            int valor;
+            cin >> valor;
+
+            if (valor != 1) {
+                cout << "Solo se permite ingresar el número 1. Intente de nuevo.\n";
+                --j;  // Decrementamos j para que el usuario reingrese el valor en la misma posición
+            } else {
+                matriz[i][j] = valor;
+            }
+        }
+    }
+}
+
