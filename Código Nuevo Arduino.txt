@@ -1,12 +1,21 @@
 void verificar(int, int, int);
 void encenderTodos();
-void apagarTodos();
 
+void imagen(int, int, int);
+void patrones();
+void patron1();
+void patron2();
+void patron3();
+void patron4();
+void publik(int, int, int);
+void prueba();
 
 int datos = 4;
 int almacenamiento = 5;		//paso de dato de salida a salida
 int reloj = 6;
 int arreglo[8] = {};
+int *arreglito = nullptr;
+int nulo[8]={0,0,0,0,0,0,0,0};
 
 
 
@@ -24,7 +33,51 @@ void setup(){
 
 
 void loop(){
-	verificar(1000,1000,5);
+	int opcionA = 0;
+  	int tiempo1 = 0;
+  	int tiempo2 = 0;
+    	int reps = 0;
+  	Serial.print("\n MENU: \n");
+	Serial.print("1. Probar funcionamiento de los LED (5 iteraciones de 1s de duracion)  \n");
+  	Serial.print("2. Mostrar el patron que desee a continuacon...  \n");
+	Serial.print("3. Seleccionar un patron predefinido (1-4). \n");
+	Serial.print("4. Seleccion de comandos alternos... \n");
+	Serial.print("5. prueba. \n ");
+	Serial.print("Seleccione una opcion: ");
+  	while(Serial.available() == 0);
+  	opcionA = Serial.parseInt();
+  	Serial.print(opcionA);	
+  switch(opcionA){
+   case 1:
+    	tiempo1 = 1000;
+    	tiempo2 = 1000;
+  	reps = 5;
+    	verificar(tiempo1,tiempo2, reps);
+    	break;
+   case 2:
+    	tiempo1 = 2000;
+	tiempo2 = 1000;
+	reps = 5;
+    	imagen(tiempo1, tiempo2,reps);
+	tiempo1 = 0;
+    	break;
+   case 3:
+    	patrones();
+    	break;
+   case 4:
+    	publik(tiempo1, tiempo2, reps);
+    	break;
+   case 5:
+	prueba();
+	break;	
+   default:
+    	Serial.print("\n Opcion invalida. \ n");
+    	break;
+  
+  }
+  
+  delay(1000);
+
 }
 
 
@@ -33,7 +86,169 @@ void loop(){
 
 
 
+void imagen(int tiempo1, int tiempo2, int reps){
+  	int ingresado = 0;
+ 	Serial.print("\nA continuacion ingrese los valores de cada fila en formato entero \n") ;
+  	for (int h = 0; h <8 ; h++){
+      		ingresado = 256;
+     	 	while ((ingresado >= 256)|| (ingresado < 0)){
+      			Serial.print("\nFila #");
+	      		Serial.print(h + 1);
+	      		Serial.print(": ");
+      			while(Serial.available() == 0);
+		        ingresado = Serial.parseInt();
+		        Serial.print(ingresado);
+        		if ((ingresado >= 256)|| (ingresado < 0)){
+	              		Serial.print("\nNumero invalido, asegurese que se encuentre en el intervalo [0,255]\n");
+        		}
+      		}
+     	 arreglo[h] = ingresado;
+  	}
+	for (int i = 0; i< reps; i++ ){
+	ledWrite(arreglo); delay(tiempo1);
+	ledWrite(nulo); delay(tiempo2);
+	}
+}
 
+
+
+//Meú de patrones
+void patrones(){
+  int opcionB = 0;
+  while (opcionB !=5){
+    Serial.print("\n MENU: \n");
+      Serial.print("1. Patron 1.  \n");
+      Serial.print("2. Patron 2. \n");
+      Serial.print("3. Patron 3. \n");
+      Serial.print("4. Patron 4. \n");
+      Serial.print("5. Salir. \n");
+      Serial.print("Seleccione una opcion: ");
+      while(Serial.available() == 0);
+      opcionB = Serial.parseInt();
+    Serial.print(opcionB);
+    switch(opcionB){
+     case 1:
+	arreglito = patron1();
+
+	ledWrite(arreglito);
+
+      	break;
+     case 2: 
+      	patron2();
+      	break;
+     case 3:
+      	patron3();
+      	break;
+     case 4:
+      	patron4();
+      	break;
+     case 5:
+      	break;
+     default:
+      	Serial.print("\n Opcion invalida. \ n");
+    	break;
+    }
+  }
+}
+//Fin menú patrones
+
+
+int *patron1(){
+	int *patroncito= new int[8];
+
+	for (int i = 0; i< 4; i++)
+	patroncito[i]=85;
+	for (int i = 4; i<8; i++)
+	patroncito[i] = 170;
+
+	return patroncito;
+
+
+
+  	//Serial.print("\nHola Mundo 3 \n") ;
+}
+
+void patron2(){
+  	Serial.print("\nHola Mundo 4 \n") ;
+}
+
+void patron3(){
+ 	Serial.print("\nHola Mundo 5 \n") ; 
+}
+
+void patron4(){
+ 	Serial.print("\nHola Mundo 6 \n") ; 
+}
+  
+
+
+void publik(int tiempo1,int tiempo2, int reps){
+  	int opcionC = 0;
+  	while (opcionC !=4){
+    Serial.print("\n MENU: \n");
+      Serial.print("Para las siguientes opciones se debera ingresar el tiempo solicitado en una solicitud mas adelante.   \n");
+      Serial.print("1. Verificar funcionamiento LED.  \n");
+      Serial.print("2. Mostrar imagen deseada. \n");
+      Serial.print("3. Alternar patrones del 1 al 4. \n");
+      Serial.print("4. Salir. \n");
+      Serial.print("Seleccione una opcion: ");
+      while(Serial.available() == 0);
+      opcionC = Serial.parseInt();
+      Serial.print(opcionC);
+      switch(opcionC){
+        case 1:
+        	Serial.print("\n Ingrese el tiempo (en ms) de duracion de los LED encendidos. \n");
+        	while(Serial.available() == 0);
+        	tiempo1 = Serial.parseInt();
+        	Serial.print("Ingrese el tiempo (en ms) de duracion de los LED apagados. \n");
+        	while(Serial.available() == 0);
+        	tiempo2 = Serial.parseInt();
+        	Serial.print("Ingrese la cantidad de secuencias que desea ver. \n");
+        	while(Serial.available() == 0);	
+        	reps = Serial.parseInt();
+        	verificar(tiempo1, tiempo2, reps);
+        	break;
+        case 2:
+        	Serial.print("\n Ingrese el tiempo (en ms) de duracion de los LED encendidos. \n");
+        	while(Serial.available() == 0);
+        	tiempo1 = Serial.parseInt();
+        	Serial.print("Ingrese el tiempo (en ms) de duracion de los LED apagados. \n");
+        	while(Serial.available() == 0);
+        	tiempo2 = Serial.parseInt();
+        	Serial.print("Ingrese la cantidad de secuencias que desea ver. \n");
+        	while(Serial.available() == 0);	
+        	reps = Serial.parseInt();
+		imagen(tiempo1, tiempo2, reps);
+        	break;
+        case 3:
+        
+        	break;
+        case 4:
+        	break;
+        default:
+      		Serial.print("\n Opcion invalida. \ n");
+    		break;
+      }
+    }
+}
+  
+  
+
+
+
+void verificar(int tiempo1, int tiempo2, int reps){
+	for (int j = 0; j< reps; j++){
+		encenderTodos(); delay(tiempo1);
+		ledWrite(nulo); delay(tiempo2);
+	}
+}
+
+void encenderTodos(){
+	for(int i=0; i<8; i++){
+		arreglo[i] = 255;
+	}
+	ledWrite(arreglo);
+}
 
 
 
@@ -51,23 +266,6 @@ void ledWrite(int *arreglo){
    	digitalWrite(almacenamiento, LOW);
 }
 
-void verificar(int tiempo1, int tiempo2, int reps){
-	for (int j = 0; j< reps; j++){
-		encenderTodos(); delay(tiempo1);
-		apagarTodos(); delay(tiempo2);
-	}
-}
-
-void encenderTodos(){
-	for(int i=0; i<8; i++){
-		arreglo[i] = 255;
-	}
-	ledWrite(arreglo);
-}
-
-void apagarTodos(){
-	for(int i=0; i<8; i++){
-		arreglo[i] = 0;
-	}
-	ledWrite(arreglo);
+void prueba(){
+  imagen();
 }
