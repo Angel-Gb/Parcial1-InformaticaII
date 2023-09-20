@@ -1,0 +1,56 @@
+void vaciarArreglo();
+void llenarArreglo();
+void encenderTodos();
+void apagarTodos();
+
+
+const int datos = 4;
+const int almacenamiento = 5;  		//paso de dato de salida a salida
+const int reloj = 6;
+int arreglo[8] = {};
+int fila[8] = {0,0,0,0,0,0,0,0};
+
+void setup(){
+	pinMode(4, OUTPUT);
+  	pinMode(5, OUTPUT);
+	pinMode(6, OUTPUT);
+  	Serial.begin(9600);
+}
+
+void loop(){
+	encenderTodos();
+	apagarTodos();
+
+}
+
+
+
+
+
+void encenderTodos(){
+	llenarArreglo();
+	digitalWrite(almacenamiento, LOW);
+	shiftOut(datos, reloj, LSBFIRST, arreglo[0]);
+	shiftOut(datos, reloj, LSBFIRST, fila[0]);
+	digitalWrite(almacenamiento, HIGH);
+}
+void apagarTodos(){
+	vaciarArreglo();
+	digitalWrite(almacenamiento, LOW);
+	shiftOut(datos, reloj, LSBFIRST, arreglo[0]);
+	shiftOut(datos, reloj, LSBFIRST, fila[0]);
+	digitalWrite(almacenamiento, HIGH);
+}
+
+void vaciarArreglo(){
+	for (int i = 0; i<8 ; i++){
+		arreglo[i] = 0;
+	}
+}
+
+void llenarArreglo(){
+	for (int i = 0; i < 8; i++){
+		arreglo[i] = 255;
+	}
+
+}
