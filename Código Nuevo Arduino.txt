@@ -2,13 +2,14 @@ void vaciarArreglo();
 void llenarArreglo();
 void encenderTodos();
 void apagarTodos();
+void encenderFila1();
 
 
 const int datos = 4;
 const int almacenamiento = 5;  		//paso de dato de salida a salida
 const int reloj = 6;
 int arreglo[8] = {};
-int fila[8] = {0,0,0,0,0,0,0,0};
+int fila[8] = {170,170,170,170,170,170,170,170};
 
 void setup(){
 	pinMode(4, OUTPUT);
@@ -18,13 +19,23 @@ void setup(){
 }
 
 void loop(){
-	encenderTodos();
-	apagarTodos();
+	encenderFila1(); delay(1000);
 
 }
 
 
-
+void encenderFila1(){
+	arreglo[0] = 255;
+	for (int i = 1 ;  i<8 ; i++){
+		arreglo[i] = 0;
+	}
+	for (int i = 0; i<8 ; i++){
+		digitalWrite(almacenamiento, LOW);
+		shiftOut(datos, reloj, LSBFIRST,arreglo[i] );
+		//shiftOut(datos, reloj, LSBFIRST, fila[i]);
+		digitalWrite(almacenamiento, HIGH);
+	}
+}
 
 
 void encenderTodos(){
