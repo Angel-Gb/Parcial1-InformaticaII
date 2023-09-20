@@ -37,7 +37,7 @@ void loop(){
   	int opcionA = 0;
   	int tiempo1 = 0;
   	int tiempo2 = 0;
-    int reps = 0;
+    	int reps = 0;
   	Serial.print("\n MENU: \n");
 	Serial.print("1. Probar funcionamiento de los LED (5 iteraciones de 1s de duracion)  \n");
   	Serial.print("2. Mostrar el patron que desee a continuacon...  \n");
@@ -46,11 +46,11 @@ void loop(){
 	Serial.print("Seleccione una opcion: ");
   	while(Serial.available() == 0);
   	opcionA = Serial.parseInt();
-  	Serial.print(opcionA);
+  	Serial.print(opcionA);	
   switch(opcionA){
     case 1:
     	tiempo1 = 1000;
-    	tiempo2 = 3000;
+    	tiempo2 = 1000;
   		reps = 5;
     	verificacion(tiempo1,tiempo2, reps);
     	break;
@@ -87,6 +87,7 @@ void verificacion(int tiempo1, int tiempo2, int reps){
 void imagen(){
  	Serial.print("\nHola Mundo 2 \n") ;
 }
+
 
 //Meú de patrones
 void patrones(){
@@ -190,7 +191,7 @@ void publik(int tiempo1,int tiempo2, int reps){
 
 void encenderTodos(int tiempo1){
   for (int p = 0; p <8 ; p++){
-    matriz[p] = 255;
+    matriz[p] = 255;		
   }
 	digitalWrite(almacenamiento, LOW);
 	shiftOut(datos, reloj, LSBFIRST, matriz[j]);
