@@ -1,16 +1,5 @@
 // C++ code
 
-
-// definición variables y pines
-const int datos = 4;
-const int almacenamiento = 5;  		//paso de dato de salida a salida
-const int reloj = 6;
-int j = 0;
-int matriz[8] = {};
-int fila[8] = {0,0,0,0,0,0,0,0};
-
-
-
 //Prototipo funciones
 void verificacion(int ,int , int);
 void imagen();
@@ -22,6 +11,20 @@ void patron4();
 void publik(int, int, int);
 void encenderTodos(int);
 void apagarTodos(int);
+void prueba();
+
+
+
+// definición variables y pines
+const int datos = 4;
+const int almacenamiento = 5;  		//paso de dato de salida a salida
+const int reloj = 6;
+int j = 0;
+int matriz[8] = {};
+int fila[8] = {0,0,0,0,0,0,0,0};
+
+
+
 
 
 // setup
@@ -43,27 +46,31 @@ void loop(){
   	Serial.print("2. Mostrar el patron que desee a continuacon...  \n");
 	Serial.print("3. Seleccionar un patron predefinido (1-4). \n");
 	Serial.print("4. Seleccion de comandos alternos... \n");
+	Serial.print("5. prueba. \n ")
 	Serial.print("Seleccione una opcion: ");
   	while(Serial.available() == 0);
   	opcionA = Serial.parseInt();
   	Serial.print(opcionA);	
   switch(opcionA){
-    case 1:
+   case 1:
     	tiempo1 = 1000;
     	tiempo2 = 1000;
-  		reps = 5;
+  	reps = 5;
     	verificacion(tiempo1,tiempo2, reps);
     	break;
-    case 2:
+   case 2:
     	imagen();
     	break;
-    case 3:
+   case 3:
     	patrones();
     	break;
-   	case 4:
+   case 4:
     	publik(tiempo1, tiempo2, reps);
     	break;
-    default:
+   case 5:
+	prueba();
+	break;	
+   default:
     	Serial.print("\n Opcion invalida. \ n");
     	break;
   
@@ -209,4 +216,310 @@ void apagarTodos(int tiempo2){
 	shiftOut(datos, reloj, LSBFIRST, fila[0]);
 	digitalWrite(almacenamiento, HIGH);
 	delay(tiempo2);
+}
+
+void prueba(){
+
+
+}
+
+
+
+
+
+
+
+
+
+
+// C++ code
+
+//Prototipo funciones
+void verificacion(int ,int , int);
+void imagen(int);
+void patrones();
+void patron1();
+void patron2();
+void patron3();
+void patron4();
+void publik(int, int, int);
+void encenderTodos(int);
+void apagarTodos(int);
+void prueba();
+
+
+
+// definición variables y pines
+const int datos = 4;
+const int almacenamiento = 5;  		//paso de dato de salida a salida
+const int reloj = 6;
+int j = 0;
+int matriz[8] = {};
+int fila[8] = {127, 191, 223, 239, 247, 251, 253, 254};
+
+
+
+
+
+// setup
+void setup(){
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
+  Serial.begin(9600);
+}
+
+//Loop
+void loop(){
+  	int opcionA = 0;
+  	int tiempo1 = 0;
+  	int tiempo2 = 0;
+    	int reps = 0;
+  	Serial.print("\n MENU: \n");
+	Serial.print("1. Probar funcionamiento de los LED (5 iteraciones de 1s de duracion)  \n");
+  	Serial.print("2. Mostrar el patron que desee a continuacon...  \n");
+	Serial.print("3. Seleccionar un patron predefinido (1-4). \n");
+	Serial.print("4. Seleccion de comandos alternos... \n");
+	Serial.print("5. prueba. \n ");
+	Serial.print("Seleccione una opcion: ");
+  	while(Serial.available() == 0);
+  	opcionA = Serial.parseInt();
+  	Serial.print(opcionA);	
+  switch(opcionA){
+   case 1:
+    	tiempo1 = 1000;
+    	tiempo2 = 1000;
+  	reps = 5;
+    	verificacion(tiempo1,tiempo2, reps);
+    	break;
+   case 2:
+    	tiempo1 = 1000;
+    	imagen(tiempo1);
+    	break;
+   case 3:
+    	patrones();
+    	break;
+   case 4:
+    	publik(tiempo1, tiempo2, reps);
+    	break;
+   case 5:
+	prueba();
+	break;	
+   default:
+    	Serial.print("\n Opcion invalida. \ n");
+    	break;
+  
+  }
+  
+  delay(1000);
+
+}
+
+
+//Cuerpo de funciones
+
+void verificacion(int tiempo1, int tiempo2, int reps){
+  for (int y = 0; y < reps; y++){
+ 	encenderTodos(tiempo1);
+  	//apagarTodos(tiempo2);
+  }
+}
+
+
+void imagen(int tiempo1){
+  	int ingresado = 0;
+ 	Serial.print("\nA continuacion ingrese los valores de cada fila en formato entero \n") ;
+  	for (int h = 0; h <8 ; h++){
+      ingresado = 256;
+      while ((ingresado >= 256)|| (ingresado < 0)){
+      	Serial.print("\nFila #");
+      	Serial.print(h + 1);
+      	Serial.print(": ");
+      	while(Serial.available() == 0);
+        ingresado = Serial.parseInt();
+        Serial.print(ingresado);
+              if ((ingresado >= 256)|| (ingresado < 0)){
+              	Serial.print("\nNumero invalido, asegurese que se encuentre en el intervalo [0,255]\n");
+              }
+      	}
+      matriz[h] = ingresado;
+  	}
+  /*
+    for(j ; j<8 ; j++){
+    	digitalWrite(almacenamiento, LOW);
+		shiftOut(datos, reloj, LSBFIRST, matriz[j]);
+		shiftOut(datos, reloj, LSBFIRST, fila[0]);
+		digitalWrite(almacenamiento, HIGH);
+		delay(tiempo1);	
+    }
+  */
+}
+
+
+//Meú de patrones
+void patrones(){
+  int opcionB = 0;
+  while (opcionB !=5){
+    Serial.print("\n MENU: \n");
+      Serial.print("1. Patron 1.  \n");
+      Serial.print("2. Patron 2. \n");
+      Serial.print("3. Patron 3. \n");
+      Serial.print("4. Patron 4. \n");
+      Serial.print("5. Salir. \n");
+      Serial.print("Seleccione una opcion: ");
+      while(Serial.available() == 0);
+      opcionB = Serial.parseInt();
+    Serial.print(opcionB);
+    switch(opcionB){
+     case 1:
+      	patron1();
+      	break;
+     case 2: 
+      	patron2();
+      	break;
+     case 3:
+      	patron3();
+      	break;
+     case 4:
+      	patron4();
+      	break;
+     case 5:
+      	break;
+     default:
+      	Serial.print("\n Opcion invalida. \ n");
+    	break;
+    }
+  }
+}
+//Fin menú patrones
+
+
+void patron1(){
+  	Serial.print("\nHola Mundo 3 \n") ;
+}
+
+void patron2(){
+  	Serial.print("\nHola Mundo 4 \n") ;
+}
+
+void patron3(){
+ 	Serial.print("\nHola Mundo 5 \n") ; 
+}
+
+void patron4(){
+ 	Serial.print("\nHola Mundo 6 \n") ; 
+}
+  
+void publik(int tiempo1,int tiempo2, int reps){
+  	int opcionC = 0;
+  	while (opcionC !=4){
+    Serial.print("\n MENU: \n");
+      Serial.print("Para las siguientes opciones se debera ingresar el tiempo solicitado en una solicitud mas adelante.   \n");
+      Serial.print("1. Verificar funcionamiento LED.  \n");
+      Serial.print("2. Mostrar imagen deseada. \n");
+      Serial.print("3. Alternar patrones del 1 al 4. \n");
+      Serial.print("4. Salir. \n");
+      Serial.print("Seleccione una opcion: ");
+      while(Serial.available() == 0);
+      opcionC = Serial.parseInt();
+      Serial.print(opcionC);
+      switch(opcionC){
+        case 1:
+        	Serial.print("\n Ingrese el tiempo (en ms) de duracion de los LED encendidos. \n");
+        	while(Serial.available() == 0);
+        	tiempo1 = Serial.parseInt();
+        	Serial.print("Ingrese el tiempo (en ms) de duracion de los LED apagados. \n");
+        	while(Serial.available() == 0);
+        	tiempo2 = Serial.parseInt();
+        	Serial.print("Ingrese la cantidad de secuencias que desea ver. \n");
+        	while(Serial.available() == 0);	
+        	reps = Serial.parseInt();
+        	verificacion(tiempo1, tiempo2, reps);
+        	break;
+        case 2:
+        	
+        	break;
+        case 3:
+        
+        	break;
+        case 4:
+        	break;
+        default:
+      		Serial.print("\n Opcion invalida. \ n");
+    		break;
+      }
+    }
+}
+  
+  
+
+
+
+
+void encenderTodos(int tiempo1){
+  /*
+  for (int p = 0; p <8 ; p++){
+    matriz[p] = 255;		
+  }
+  */
+  for (int i = 0; i <8; i++){
+	shiftOut(datos, reloj, LSBFIRST, 255);
+	shiftOut(datos, reloj, LSBFIRST, fila[i]);
+    digitalWrite(almacenamiento, LOW);
+    digitalWrite(almacenamiento, HIGH);
+	delay(tiempo1);
+  }
+}
+
+void apagarTodos(int tiempo2){
+  
+  /*for (int p = 0; p <8 ; p++){
+    matriz[p] = 0;
+	}	
+    */
+	digitalWrite(almacenamiento, LOW);
+	shiftOut(datos, reloj, LSBFIRST, 0);
+	shiftOut(datos, reloj, LSBFIRST, fila[0]);
+	digitalWrite(almacenamiento, HIGH);
+	delay(tiempo2);
+}
+
+void prueba(){
+    int ingresado = 0;
+    int *arreglo = new int[8];
+ 	Serial.print("\nA continuacion ingrese los valores de cada fila en formato entero \n") ;
+  	for (int h = 0; h <8 ; h++){
+      ingresado = 256;
+      while ((ingresado >= 256)|| (ingresado < 0)){
+      	Serial.print("\nFila #");
+      	Serial.print(h + 1);
+      	Serial.print(": ");
+      	while(Serial.available() == 0);
+        ingresado = Serial.parseInt();
+        Serial.print(ingresado);
+              if ((ingresado >= 256)|| (ingresado < 0)){
+              	Serial.print("\nNumero invalido, asegurese que se encuentre en el intervalo [0,255]\n");
+              }
+      	}
+      arreglo[h] = ingresado;
+    }
+  /*
+  matriz[0]={170};
+  matriz[1]={85};
+  matriz[2]={170};
+  matriz[3]={85};
+  matriz[4]={85};
+  matriz[5]={170};
+  matriz[6]={85};
+  matriz[7]={170};
+  for(int l = 0; l<8 ; l++){
+  	digitalWrite(almacenamiento, LOW);
+  	shiftOut(datos, reloj, LSBFIRST, matriz[l]);
+    shiftOut(datos, reloj, LSBFIRST, fila[l]);
+  	digitalWrite(almacenamiento, HIGH);
+  	delay(1000);
+  }	
+  apagarTodos(100);
+  delay(10000);
+*/
 }
