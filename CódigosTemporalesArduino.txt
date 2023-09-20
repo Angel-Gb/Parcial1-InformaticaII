@@ -207,7 +207,7 @@ void publik(int tiempo1,int tiempo2, int reps){
         	Serial.print("Ingrese la cantidad de secuencias que desea ver. \n");
         	while(Serial.available() == 0);	
         	reps = Serial.parseInt();
-        	verificacion(tiempo1, tiempo2, reps);
+        	verificar(tiempo1, tiempo2, reps);
         	break;
         case 2:
         	

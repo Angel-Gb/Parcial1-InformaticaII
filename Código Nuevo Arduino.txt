@@ -2,8 +2,8 @@ void verificar(int, int, int);
 void encenderTodos();
 
 void imagen(int, int, int);
-void patrones();
-void patron1();
+void patrones(int, int);
+int *patron1();
 void patron2();
 void patron3();
 void patron4();
@@ -62,7 +62,7 @@ void loop(){
 	tiempo1 = 0;
     	break;
    case 3:
-    	patrones();
+    	patrones(tiempo1, tiempo2);
     	break;
    case 4:
     	publik(tiempo1, tiempo2, reps);
@@ -113,7 +113,7 @@ void imagen(int tiempo1, int tiempo2, int reps){
 
 
 //Meú de patrones
-void patrones(){
+void patrones(int tiempo1, int tiempo2){
   int opcionB = 0;
   while (opcionB !=5){
     Serial.print("\n MENU: \n");
@@ -131,7 +131,7 @@ void patrones(){
 	arreglito = patron1();
 
 	ledWrite(arreglito);
-
+	delete arreglito;
       	break;
      case 2: 
       	patron2();
@@ -221,7 +221,20 @@ void publik(int tiempo1,int tiempo2, int reps){
 		imagen(tiempo1, tiempo2, reps);
         	break;
         case 3:
-        
+        	Serial.print("\n Ingrese el tiempo (en ms) de duracion de los LED encendidos. \n");
+        	while(Serial.available() == 0);
+        	tiempo1 = Serial.parseInt();
+        	Serial.print("Ingrese el tiempo (en ms) de duracion de los LED apagados. \n");
+        	while(Serial.available() == 0);
+        	tiempo2 = Serial.parseInt();
+		patron1(); delay(tiempo1);
+		ledWrite(nulo); delay(tiempo2);
+		patron2(); delay(tiempo1);
+		ledWrite(nulo); delay(tiempo2);	
+		patron3(); delay(tiempo1);
+		ledWrite(nulo); delay(tiempo2);
+		patron4(); delay(tiempo1);
+		ledWrite(nulo); delay(tiempo2);
         	break;
         case 4:
         	break;
@@ -267,5 +280,5 @@ void ledWrite(int *arreglo){
 }
 
 void prueba(){
-  imagen();
+  
 }
