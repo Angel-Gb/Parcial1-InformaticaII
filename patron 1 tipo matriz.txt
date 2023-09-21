@@ -3,15 +3,16 @@ using namespace std;
 
 int main() {
     const int tamano = 8; // Tamaño del patrón (8x8)
-    int patron[tamano][tamano];
+    int patron[tamano][tamano]; // Declaración de una matriz llamada "patron" de tamaño 8x8
 
     // Generar el patrón específico
     for (int i = 0; i < tamano; i++) {
         for (int j = 0; j < tamano; j++) {
+            // Esta condición determina si el valor en la posición [i][j] debe ser 1 o 0
             if ((i <= j && i + j < tamano) || (i >= j && i + j >= tamano - 1)) {
-                patron[i][j] = 1;
+                patron[i][j] = 1; // Establece el valor en la posición [i][j] como 1
             } else {
-                patron[i][j] = 0;
+                patron[i][j] = 0; // Establece el valor en la posición [i][j] como 0
             }
         }
     }
@@ -19,9 +20,11 @@ int main() {
     // Imprimir el patrón con las últimas cuatro filas intercambiadas con las primeras cuatro filas
     for (int i = 0; i < tamano; i++) {
         for (int j = 0; j < tamano; j++) {
-                cout << patron[(i + 4) % tamano][j] << " ";
+            // Imprime el valor en la posición [(i + 4) % tamano][j], que intercambia las filas
+            // Las últimas cuatro filas se imprimen como las primeras cuatro y viceversa.
+            cout << patron[(i + 4) % tamano][j] << " ";
         }
-            cout <<endl;
+        cout << endl; // Imprime un salto de línea después de imprimir una fila completa.
     }
 
     return 0;
