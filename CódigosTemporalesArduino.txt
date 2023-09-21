@@ -1,6 +1,89 @@
 
 
 
+
+
+
+
+  	int tiempo1 = 0;
+  	int tiempo2 = 0;
+    	int reps = 0;
+  	Serial.print("\n MENU: \n");
+	Serial.print("1. Probar funcionamiento de los LED (5 iteraciones de 1s de duracion)  \n");
+  	Serial.print("2. Mostrar el patron que desee a continuacon...  \n");
+	Serial.print("3. Seleccionar un patron predefinido (1-4). \n");
+	Serial.print("4. Seleccion de comandos alternos... \n");
+	Serial.print("Seleccione una opcion: ");
+  	while(Serial.available() == 0);
+  	opcionA = Serial.parseInt();
+  	Serial.print(opcionA);	
+  switch(opcionA){
+   case 1:
+    	tiempo1 = 1000;
+    	tiempo2 = 1000;
+  	reps = 5;
+    	verificacion(tiempo1,tiempo2, reps);
+    	break;
+   case 2:
+    	tiempo1 = 2000;
+	tiempo2 = 1000;
+	reps = 5;
+    	imagen(tiempo1, tiempo2,reps);
+	tiempo1 = 0;
+    	break;
+   case 3:
+    	patrones(tiempo1, tiempo2);
+    	break;
+   case 4:
+    	publik(tiempo1, tiempo2, reps);
+    	break;
+   default:
+    	Serial.print("\n Opcion invalida. \ n");
+    	break;
+  
+  }
+  
+  delay(1000);
+
+}
+
+
+
+
+
+
+
+int opcionB = 0;
+  while (opcionB !=5){
+    Serial.print("\n MENU: \n");
+      Serial.print("1. Patron 1.  \n");
+      Serial.print("2. Patron 2. \n");
+      Serial.print("3. Patron 3. \n");
+      Serial.print("4. Patron 4. \n");
+      Serial.print("5. Salir. \n");
+      Serial.print("Seleccione una opcion: ");
+      while(Serial.available() == 0);
+      opcionB = Serial.parseInt();
+    Serial.print(opcionB);
+    switch(opcionB){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // C++ code
 
 //Prototipo funciones

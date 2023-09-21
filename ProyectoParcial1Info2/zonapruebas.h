@@ -4,7 +4,6 @@
 using namespace std;
 
 void ZonaPruebas();
-int binarioADecimal(int []);
-int potencia(int, int);
+
 
 #endif // ZONAPRUEBAS_H

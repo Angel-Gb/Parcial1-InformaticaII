@@ -1,0 +1,62 @@
+Patrón X
+
+int main() {
+
+    int patron1[8][8]; // Declaración de una matriz llamada "patron1" de 8x8
+
+    // Generar el patrón 1
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            // Esta condición verifica si (i, j) está en una de las dos diagonales de la matriz.
+            // Si es así, establece el valor en (i, j) como 1, de lo contrario, lo establece como 0.
+            if ((i == j) || (i + j == 7)) {
+                patron1[i][j] = 1;
+            } else {
+                patron1[i][j] = 0;
+            }
+        }
+    }
+
+    // Imprimir el patrón 1
+    
+	for (int i = 0; i<8; i++){
+		for (int j = 0; j<8; j++){
+			cout<< patron1[i][j]<< " ";
+			
+		}
+		cout<< endl;
+	}
+		
+    return 0;
+}
+
+
+
+
+
+
+
+int binarioADecimal(int []);
+int potencia(int, int);
+
+
+int binarioADecimal(int arreglo[]){
+    int total = 0;
+    for (int i = 0; i <8; i++){
+        if(arreglo[i]==1){
+            total += potencia(2,7-i);
+        }
+    }
+
+
+
+    return total;
+}
+
+int potencia(int num, int potencia){
+    int potenciaTotal = 1;
+    for (int j = 0; j < potencia ; j++){
+        potenciaTotal *= num;
+    }
+    return potenciaTotal;
+}
