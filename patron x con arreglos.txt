@@ -1,0 +1,33 @@
+#include <iostream>
+
+using namespace std;
+
+const int filas = 8;
+const int columnas = 8;
+
+int main() {
+    int patron1[filas][columnas];
+
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            if ((i == j) || (i + j == filas - 1)) {
+                patron1[i][j] = 1;
+            } else {
+                patron1[i][j] = 0;
+            }
+        }
+    }
+
+    // Imprimir el patrón 1
+    for (int i = 0; i < filas; i++) {
+        for (int j = 0; j < columnas; j++) {
+            cout << patron1[i][j];
+            if (j < columnas - 1) {
+                cout << ", ";
+            }
+        }
+        cout << endl;
+    }
+
+    return 0;
+}

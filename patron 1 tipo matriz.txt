@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    const int tamano = 8; // Tamaño del patrón (8x8)
+    int patron[tamano][tamano];
+
+    // Generar el patrón específico
+    for (int i = 0; i < tamano; i++) {
+        for (int j = 0; j < tamano; j++) {
+            if ((i <= j && i + j < tamano) || (i >= j && i + j >= tamano - 1)) {
+                patron[i][j] = 1;
+            } else {
+                patron[i][j] = 0;
+            }
+        }
+    }
+
+    // Imprimir el patrón con las últimas cuatro filas intercambiadas con las primeras cuatro filas
+    for (int i = 0; i < tamano; i++) {
+        for (int j = 0; j < tamano; j++) {
+                cout << patron[(i + 4) % tamano][j] << " ";
+        }
+            cout <<endl;
+    }
+
+    return 0;
+}
