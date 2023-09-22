@@ -9,7 +9,9 @@ int binarioADecimal(int []);
 int potencia(int, int);
 void ledWrite(int []);
 void encenderTodos();
+void prueba();
 
+//Declaración de variables
 int datos = 4;
 int almacenamiento = 5;		//paso de dato de salida a salida
 int reloj = 6;
@@ -37,6 +39,7 @@ void loop(){				//Todo esto sería el publik, pero no es adecuado crear una func
 	int opcion = 0;
 	int tiempo1 = 0;
 	int tiempo2 = 0;
+  	int reps = 0;
     	Serial.print("\n MENU: \n");
       	Serial.print("Para las siguientes opciones se debera ingresar el tiempo solicitado en una solicitud mas adelante.   \n");
       	Serial.print("1. Verificar funcionamiento LED.  \n");
@@ -81,6 +84,9 @@ void loop(){				//Todo esto sería el publik, pero no es adecuado crear una func
 		patrones(tiempo1, tiempo2);
 
         	break;
+	case 4:
+		prueba();
+		break;
         default:
       		Serial.print("\n Opcion invalida. \ n");
     		break;
@@ -140,11 +146,12 @@ void patrones(int tiempo1, int tiempo2){
 	ledWrite(arreglito);delay(tiempo1);
 	delete arreglito;
 	ledWrite(nulo);	delay(tiempo2);
-
+/*
       	arreglito = patron4();
 	ledWrite(arreglito);delay(tiempo1);
 	delete arreglito;
 	ledWrite(nulo); delay(tiempo2);
+*/
 
 }
 //Fin menú patrones
@@ -177,15 +184,48 @@ int *patron1(){
 
 
 
-void patron2(){
-  	Serial.print("\nHola Mundo 4 \n") ;
+int *patron2(){
+  	int *patroncito= new int[8];
+    	int patron2[8][8]={}; // Declaración de una matriz llamada "patron1" de 8x8
+    	for (int i = 0; i < 8; i++) {
+        	for (int j = 0; j < 8; j++) {
+            	// Esta condición verifica si (i, j) está en una de las dos diagonales de la matriz.
+            	// Si es así, establece el valor en (i, j) como 1, de lo contrario, lo establece como 0.
+            	if ((i == j) || (i + j == 7)) {
+                	patron2[i][j] = 1;
+            	}
+            	else {
+                	patron2[i][j] = 0;
+            	}
+        	}
+    	}
+    	for (int i = 0; i<8; i++){
+        	patroncito[i] = binarioADecimal(patron2[i]);
+    	}
+	return patroncito;
 }
 
-void patron3(){
- 	Serial.print("\nHola Mundo 5 \n") ; 
+int *patron3(){
+ 	int *patroncito = new int[8];
+    	// Definición de dos secuencias de números (secuencia1 y secuencia2)
+    	int secuencia1[8] = {1, 1, 0, 1, 1, 0, 1, 1};
+    	int secuencia2[8] = {0, 1, 1, 0, 1, 1, 0, 1};
+    	int **matriz = new int *[8];
+    	// Iteración a través de las filas
+    	for (int i = 0; i < 8; i++) {
+        	// Determina cuál secuencia se utilizará en esta fila basándose en el valor de i
+        	// Se alterna entre secuencia1 y secuencia2 en grupos de 4 filas.
+        	matriz[i] = (i % 4 < 2) ? secuencia1 : secuencia2;
+    	}
+    	for (int i = 0; i<8; i++){
+        	patroncito[i] = binarioADecimal(matriz[i]);
+    	}
+    	delete[] matriz;
+    	return patroncito;
 }
 
-void patron4(){
+
+int *patron4(){
  	Serial.print("\nHola Mundo 6 \n") ; 
 }
   
@@ -245,3 +285,11 @@ void ledWrite(int *arreglo){
    	
 }
 
+void prueba(){
+	int tiempo1 = 3000;
+	int tiempo2 = 3000;
+	arreglito = patron2(); 
+	ledWrite(arreglito);delay(tiempo1);
+	delete arreglito;
+	ledWrite(nulo); delay(tiempo2);
+}
