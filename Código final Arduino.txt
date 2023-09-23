@@ -9,7 +9,7 @@ int binarioADecimal(int []);
 int potencia(int, int);
 void ledWrite(int []);
 void encenderTodos();
-void prueba();
+
 
 //Declaración de variables
 int datos = 4;
@@ -84,9 +84,6 @@ void loop(){				//Todo esto sería el publik, pero no es adecuado crear una func
 		patrones(tiempo1, tiempo2);
 
         	break;
-	case 4:
-		prueba();
-		break;
         default:
       		Serial.print("\n Opcion invalida. \ n");
     		break;
@@ -146,12 +143,12 @@ void patrones(int tiempo1, int tiempo2){
 	ledWrite(arreglito);delay(tiempo1);
 	delete arreglito;
 	ledWrite(nulo);	delay(tiempo2);
-/*
+
       	arreglito = patron4();
 	ledWrite(arreglito);delay(tiempo1);
 	delete arreglito;
 	ledWrite(nulo); delay(tiempo2);
-*/
+
 
 }
 //Fin menú patrones
@@ -226,7 +223,38 @@ int *patron3(){
 
 
 int *patron4(){
- 	Serial.print("\nHola Mundo 6 \n") ; 
+	int *patroncito = new int[8];
+	// Declaración de los arrays unidimensionales
+    	int fila1[8]={};
+    	int fila2[8]={};
+    	int fila3[8]={};
+	int fila4[8]={};
+    	int prueba = 0;
+
+    	// almacenamos estos arrays en un array de punteros.
+    	int* filas[8] = {fila1, fila2, fila3, fila4, fila4, fila3, fila2, fila1};
+
+    
+    	// correr los valores para llenar con unos
+    	for (int i = 0; i < 8; i++) {
+        	if (i < 4 ) {
+            		fila1[i] = 1;
+            		fila2[i] = 0;
+            	fila3[i] = 0;
+            	fila4[i] = 0;
+		}
+		else{
+            		fila1[i] = 0;
+            		fila2[i-3] = 1;
+            		fila3[i-2] = 1;
+            		fila4[i-1] = 1;
+        	}
+
+    	}    
+	for (int i = 0; i<8; i++){
+        	patroncito[i]  = binarioADecimal(filas[i]);        	
+    	}
+	return patroncito;
 }
   
 
@@ -283,13 +311,4 @@ void ledWrite(int *arreglo){
   	shiftOut(datos, reloj, LSBFIRST,arreglo[i-7]);
   	digitalWrite(almacenamiento, HIGH);
    	
-}
-
-void prueba(){
-	int tiempo1 = 3000;
-	int tiempo2 = 3000;
-	arreglito = patron2(); 
-	ledWrite(arreglito);delay(tiempo1);
-	delete arreglito;
-	ledWrite(nulo); delay(tiempo2);
 }
