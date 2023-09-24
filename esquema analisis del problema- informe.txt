@@ -1,0 +1,13 @@
+El proyecto comenzó abordando la problemática de cómo controlar 64 diodos LED de manera sincronizada siguiendo un patrón específico por filas, empezando por la fila superior. Para esto, se decidió utilizar un arreglo unidimensional de números enteros, donde cada posición del arreglo representaba el comportamiento de una fila de LED, tomando valores de 0 a 255, que corresponde a la combinación máxima posible en un byte, y esto representaba las distintas combinaciones posibles para cada fila de LED.
+
+Luego, se investigó y se buscó aprovechar el circuito integrado 74HC595, utilizando ocho de estos chips para almacenar los datos que debían ser representados en cada columna de LED. Cada salida de estos chips se configuró para tomar un valor binario de 1 o 0, indicando si el LED debía estar encendido o apagado.
+
+Una vez se estableció una base general para el circuito, se desarrolló una función llamada "ledWrite" para controlar cada LED. Esta función recibía un arreglo de 8 posiciones, donde la primera posición correspondía a la primera fila de LED y así sucesivamente. Se utilizó la función "shiftOut" para enviar los datos de forma inversa debido al desplazamiento de datos en los circuitos integrados.
+
+Después de lograr un funcionamiento exitoso de los LEDs, se procedió a crear la función "verificación" para asegurarse de que cada LED se encendiera correctamente. Luego, se continuó con la función "imagen" para tener un control completo sobre cada posición de la matriz y extender este control a los patrones restantes.
+
+En cuanto a los algoritmos, la función "ledWrite" se considera fundamental y base para todo el proyecto, ya que permitía controlar los LEDs sin importar los datos que contuviera. Además, se empleó un algoritmo propio en los patrones que hacía uso de la memoria dinámica y devolvía un puntero a una dirección de memoria donde se almacenaban temporalmente los datos del arreglo.
+
+Uno de los desafíos iniciales fue la conexión del circuito y su adaptación a la estructura de datos. Sin embargo, una vez resuelto esto y superada la cuestión del comportamiento de los LEDs, el desarrollo del proyecto avanzó sin mayores dificultades.
+
+Uno de los puntos críticos fue la conexión del circuito, ya que se tuvieron dos prototipos funcionales en la primera semana. Se eligió el prototipo de entrega debido a que el otro requería estructuras diferentes y no lograba mantener los LEDs encendidos de manera adecuada, ya que se apagaban después de encenderse para pasar a la siguiente fila.
