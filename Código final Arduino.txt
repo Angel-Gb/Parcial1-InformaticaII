@@ -37,8 +37,8 @@ void setup(){
 void loop(){				//Todo esto sería el publik, pero no es adecuado crear una función solo para repetir continuamente un mismo menú
 
 	int opcion = 0;
-	int tiempo1 = 0;
-	int tiempo2 = 0;
+	int tiempoEncendido = 0;
+	int tiempoApagado = 0;
   	int reps = 0;
     	Serial.print("\n MENU: \n");
       	Serial.print("Para las siguientes opciones se debera ingresar el tiempo solicitado en una solicitud mas adelante.   \n");
@@ -53,35 +53,35 @@ void loop(){				//Todo esto sería el publik, pero no es adecuado crear una func
         case 1:
         	Serial.print("\n Ingrese el tiempo (en ms) de duracion de los LED encendidos. \n");
         	while(Serial.available() == 0);
-        	tiempo1 = Serial.parseInt();
+        	tiempoEncendido = Serial.parseInt();
         	Serial.print("Ingrese el tiempo (en ms) de duracion de los LED apagados. \n");
         	while(Serial.available() == 0);
-        	tiempo2 = Serial.parseInt();
+        	tiempoApagado = Serial.parseInt();
         	Serial.print("Ingrese la cantidad de secuencias que desea ver. \n");
         	while(Serial.available() == 0);	
         	reps = Serial.parseInt();
-        	verificacion(tiempo1, tiempo2, reps);
+        	verificacion(tiempoEncendido, tiempoApagado, reps);
         	break;
         case 2:
         	Serial.print("\n Ingrese el tiempo (en ms) de duracion de los LED encendidos. \n");
         	while(Serial.available() == 0);
-        	tiempo1 = Serial.parseInt();
+        	tiempoEncendido = Serial.parseInt();
         	Serial.print("Ingrese el tiempo (en ms) de duracion de los LED apagados. \n");
         	while(Serial.available() == 0);
-        	tiempo2 = Serial.parseInt();
+        	tiempoApagado = Serial.parseInt();
         	Serial.print("Ingrese la cantidad de secuencias que desea ver. \n");
         	while(Serial.available() == 0);	
         	reps = Serial.parseInt();
-		imagen(tiempo1, tiempo2, reps);
+		imagen(tiempoEncendido, tiempoApagado, reps);
         	break;
         case 3:
         	Serial.print("\n Ingrese el tiempo (en ms) de duracion de los LED encendidos. \n");
         	while(Serial.available() == 0);
-        	tiempo1 = Serial.parseInt();
+        	tiempoEncendido = Serial.parseInt();
         	Serial.print("Ingrese el tiempo (en ms) de duracion de los LED apagados. \n");
         	while(Serial.available() == 0);
-        	tiempo2 = Serial.parseInt();
-		patrones(tiempo1, tiempo2);
+        	tiempoApagado = Serial.parseInt();
+		patrones(tiempoEncendido, tiempo2);
 
         	break;
         default:
@@ -99,7 +99,7 @@ void loop(){				//Todo esto sería el publik, pero no es adecuado crear una func
 
 
 
-void imagen(int tiempo1, int tiempo2, int reps){
+void imagen(int tiempoEncendido, int tiempoApagado, int reps){
   	int ingresado = 0;
  	Serial.print("\nA continuacion ingrese los valores de cada fila en formato entero \n") ;
   	for (int h = 0; h <8 ; h++){
@@ -118,36 +118,36 @@ void imagen(int tiempo1, int tiempo2, int reps){
      	 arreglo[h] = ingresado;
   	}
 	for (int i = 0; i< reps; i++ ){
-		ledWrite(arreglo); delay(tiempo1);
-		ledWrite(nulo); delay(tiempo2);
+		ledWrite(arreglo); delay(tiempoEncendido);
+		ledWrite(nulo); delay(tiempoApagado);
 	}
 }
 
 
 
 //Menú de patrones
-void patrones(int tiempo1, int tiempo2){
+void patrones(int tiempoEncendido, int tiempoApagado){
   
 	arreglito = patron1();
-	ledWrite(arreglito);delay(tiempo1);
+	ledWrite(arreglito);delay(tiempoEncendido);
 	delete arreglito;
-	ledWrite(nulo); delay(tiempo2);
+	ledWrite(nulo); delay(tiempoApagado);
 
 
       	arreglito = patron2(); 
-	ledWrite(arreglito);delay(tiempo1);
+	ledWrite(arreglito);delay(tiempoEncendido);
 	delete arreglito;
-	ledWrite(nulo); delay(tiempo2);
+	ledWrite(nulo); delay(tiempoApagado);
 
       	arreglito = patron3();
-	ledWrite(arreglito);delay(tiempo1);
+	ledWrite(arreglito);delay(tiempoEncendido);
 	delete arreglito;
-	ledWrite(nulo);	delay(tiempo2);
+	ledWrite(nulo);	delay(tiempoApagado);
 
       	arreglito = patron4();
-	ledWrite(arreglito);delay(tiempo1);
+	ledWrite(arreglito);delay(tiempoEncendido);
 	delete arreglito;
-	ledWrite(nulo); delay(tiempo2);
+	ledWrite(nulo); delay(tiempoApagado);
 
 
 }
@@ -282,10 +282,10 @@ int potencia(int num, int potencia){
 
 
 
-void verificacion(int tiempo1, int tiempo2, int reps){
+void verificacion(int tiempoEncendido, int tiempoApagado, int reps){
 	for (int j = 0; j< reps; j++){
-		encenderTodos(); delay(tiempo1);
-		ledWrite(nulo); delay(tiempo2);
+		encenderTodos(); delay(tiempoEncendido);
+		ledWrite(nulo); delay(tiempoApagado);
 	}
 }
 
